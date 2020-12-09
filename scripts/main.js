@@ -1,5 +1,4 @@
 let array = [];
-
 array = [
   // '<img src="images/bar.png" class="img-fluid" alt="Responsive image">',
   // '<img src="images/cherry.png" class="img-fluid" alt="Responsive image">',
@@ -13,13 +12,14 @@ array = [
   'D',
   'E',
 ];
+let intervalID = 0;
 // ・文字をランダムで出力するプログラムをつくろう
 // 1. HTMLファイルに、ランダム文字列表示用の要素をつくる（  <span id="rand1"></span> ）
 // 2. 関数 shuffle(id)関数を作成する。引数は、上記要素のidを渡すためのid文字列を持たせる
 // 3. 関数 shuffle(id)では、一定時間ごとに処理を呼び出すsetInterval()を使って、文字列を定期的に変更する
 
 function shuffle(id) {
-  setInterval(function() {
+  intervalID = setInterval(function() {
     const roll = [Math.floor(Math.random() * array.length)];
     console.log(array[roll])
     document.getElementById("rand1").innerHTML = (array[roll]);
@@ -31,6 +31,9 @@ function start(){
   start_lever()
   start_stop_buttons()
   shuffle()
+}
+function stop(){
+
 }
 function start_lever(){
   const obj = document.getElementById("start-button")
@@ -52,6 +55,7 @@ document.getElementById("start-button").onclick = start
 ;
 document.getElementById("stop-1").onclick = function() {
   this.classList.toggle("btn-danger");
+  clearTimeout(intervalID)
 };
 document.getElementById("stop-2").onclick = function() {
   this.classList.toggle("btn-danger");
