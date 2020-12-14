@@ -1,10 +1,10 @@
 // スロットの出目の画像タグ
 let rolls = [
-    '<img src="images/bar.png" class="img-fluid" style="height: 100px">',
     '<img src="images/cherry.png" class="img-fluid" style="height: 100px">',
     '<img src="images/prum.png" class="img-fluid" style="height: 100px">',
-    '<img src="images/seven.png" class="img-fluid" style="height: 100px">',
     '<img src="images/suika.png" class="img-fluid" style="height: 100px">',
+    '<img src="images/bar.png" class="img-fluid" style="height: 100px">',
+    '<img src="images/seven.png" class="img-fluid" style="height: 100px">',
     '<img src="images/suneo.png" class="img-fluid" style="height: 100px">',
 ];
 // スロットの回転を管理するためのタイマー
@@ -16,10 +16,41 @@ let result = [
     null, null, null
 ]
 
+function ranNum() {
+  const num = Math.floor( Math.random() * 1000 );
+  document.getElementById("dat").value = num;
+  console.log(num)
+    //チェリー
+    if (300 <= num && num <=499 ){
+        result = [0,0,0,]
+    }
+    //プラム
+    if (350 <= num && num <=699 ){
+        result = [1,1,1,]
+    }
+    //スイカ
+    if (700 <= num && num <=949 ){
+        result = [2,2,2,]
+    }
+    //BAR
+    if (950 <= num && num <=989 ){
+        result = [3,3,3,]
+    }
+    //7
+    if (990 <= num && num <=997 ){
+        result = [4,4,4,]
+    }
+    //スネ夫
+    if (998 <= num && num <=1000 ){
+        result = [5,5,5,]
+    }
+    console.log(result)
+}
+
 function shuffle(id) {
     intervalTimers[id] = setInterval(function () {
         const roll = Math.floor(Math.random() * rolls.length);
-        console.log(rolls[roll])
+        // console.log(rolls[roll])
         const elementId = "rand" + id // rand0 ~ rand2
         document.getElementById(elementId).innerHTML = rolls[roll];
     }), 100
@@ -52,12 +83,12 @@ function start() {
         return false
     }
     setResult()
-
     start_lever()
     start_stop_buttons()
     shuffle(0)
     shuffle(1)
     shuffle(2)
+    ranNum()
 }
 
 function start_lever() {
