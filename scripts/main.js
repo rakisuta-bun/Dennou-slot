@@ -16,10 +16,20 @@ let result = [
     null, null, null
 ]
 
-function ranNum() {
-  const num = Math.floor( Math.random() * 1000 );
+function ranNum(num = null) {
+  if (num === null) {
+    num = Math.ceil( Math.random() * 1000 );
+  }
   document.getElementById("dat").value = num;
-  console.log(num)
+    //ハズレ
+    if (1 <= num && num <=299 ){
+        do {
+            result[0] = Math.floor(Math.random() * rolls.length);
+            result[1] = Math.floor(Math.random() * rolls.length);
+            result[2] = Math.floor(Math.random() * rolls.length);
+            console.log(result)
+        } while (result[0] == result[1] == result[2])
+    }
     //チェリー
     if (300 <= num && num <=499 ){
         result = [0,0,0,]
@@ -44,7 +54,7 @@ function ranNum() {
     if (998 <= num && num <=1000 ){
         result = [5,5,5,]
     }
-    console.log(result)
+    //  console.log(result)
 }
 
 function shuffle(id) {
@@ -70,9 +80,15 @@ function isStopAllSlots() {
 }
 
 function setResult() {
-    result[0] = Math.floor(Math.random() * rolls.length);
-    result[1] = Math.floor(Math.random() * rolls.length);
-    result[2] = Math.floor(Math.random() * rolls.length);
+    // result[0] = Math.floor(Math.random() * rolls.length);
+    // result[1] = Math.floor(Math.random() * rolls.length);
+    // result[2] = Math.floor(Math.random() * rolls.length);
+    while(result[0] === result[1] === result[2]) {
+        result[0] = Math.floor(Math.random() * rolls.length);
+        result[1] = Math.floor(Math.random() * rolls.length);
+        result[2] = Math.floor(Math.random() * rolls.length);
+    }
+
     console.log("Result 0: ", result[0])
     console.log("Result 1: ", result[1])
     console.log("Result 2: ", result[2])
@@ -82,13 +98,13 @@ function start() {
     if (isStopAllSlots() === false) {
         return false
     }
-    setResult()
+    // setResult()
     start_lever()
     start_stop_buttons()
     shuffle(0)
     shuffle(1)
     shuffle(2)
-    ranNum()
+    ranNum(123)
 }
 
 function start_lever() {
