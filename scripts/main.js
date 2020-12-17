@@ -20,15 +20,15 @@ function ranNum(num = null) {
   if (num === null) {
     num = Math.ceil( Math.random() * 1000 );
   }
+  console.log(num)
   document.getElementById("dat").value = num;
     //ハズレ
     if (1 <= num && num <=299 ){
-        do {
-            result[0] = Math.floor(Math.random() * rolls.length);
-            result[1] = Math.floor(Math.random() * rolls.length);
-            result[2] = Math.floor(Math.random() * rolls.length);
-            console.log(result)
-        } while (result[0] == result[1] == result[2])
+        let rands = shuffleArray([0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5])
+        result[0] = rands[0]
+        result[1] = rands[1]
+        result[2] = rands[2]
+        
     }
     //チェリー
     if (300 <= num && num <=499 ){
@@ -54,7 +54,7 @@ function ranNum(num = null) {
     if (998 <= num && num <=1000 ){
         result = [5,5,5,]
     }
-    //  console.log(result)
+     console.log(result)
 }
 
 function shuffle(id) {
@@ -79,32 +79,16 @@ function isStopAllSlots() {
     return result0 && result1 && result2;
 }
 
-function setResult() {
-    // result[0] = Math.floor(Math.random() * rolls.length);
-    // result[1] = Math.floor(Math.random() * rolls.length);
-    // result[2] = Math.floor(Math.random() * rolls.length);
-    while(result[0] === result[1] === result[2]) {
-        result[0] = Math.floor(Math.random() * rolls.length);
-        result[1] = Math.floor(Math.random() * rolls.length);
-        result[2] = Math.floor(Math.random() * rolls.length);
-    }
-
-    console.log("Result 0: ", result[0])
-    console.log("Result 1: ", result[1])
-    console.log("Result 2: ", result[2])
-}
-
 function start() {
     if (isStopAllSlots() === false) {
         return false
     }
-    // setResult()
     start_lever()
     start_stop_buttons()
     shuffle(0)
     shuffle(1)
     shuffle(2)
-    ranNum(123)
+    ranNum()
 }
 
 function start_lever() {
@@ -123,6 +107,14 @@ function start_stop_buttons() {
     const obj3 = document.getElementById("stop-3")
     obj3.classList.add("btn-primary");
     obj3.classList.remove("btn-secondary");
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i >= 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 document.getElementById("start-button").onclick = start;
